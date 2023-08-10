@@ -279,5 +279,3 @@ The web app can accurately classify the category of messages. The visualizations
 Thanks to Udacity and Figure Eight for the dataset and the opportunity to work on this project. Feel free to use the code provided that you give credits/mention this repo.
 
 ---
-
-This is a comprehensive README.md for your project. You can copy and paste this directly into your repository's README.md file.
