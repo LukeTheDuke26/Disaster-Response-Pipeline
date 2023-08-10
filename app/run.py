@@ -1,9 +1,10 @@
 import json
 import plotly
 import pandas as pd
+import string
 
 from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import word_tokenize, RegexpTokenizer
 
 from flask import Flask, render_template, request, jsonify
 from plotly.graph_objs import Bar
@@ -18,10 +19,15 @@ app = Flask(__name__)
 def tokenize(text):
     """Normalize, tokenize and lemmatize text."""
     
-    tokens = word_tokenize(text)
+    # Tokenize using a regular expression tokenizer to exclude punctuation
+    tokenizer = RegexpTokenizer(r'\w+')
+    tokens = tokenizer.tokenize(text)
+    
     lemmatizer = WordNetLemmatizer()
 
-    clean_tokens = [lemmatizer.lemmatize(tok).lower().strip() for tok in tokens]
+    # Exclude stopwords from tokens and lemmatize
+    stop_words = set(stopwords.words('english'))
+    clean_tokens = [lemmatizer.lemmatize(tok).lower().strip() for tok in tokens if tok.lower() not in stop_words]
 
     return clean_tokens
 

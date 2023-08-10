@@ -65,13 +65,17 @@
     {% endfor %}
 </div>
 
+<{% if ids %}
 <script type="text/javascript">
-    const graphs = {{ graphJSON|safe }};
-    const ids = {{ ids|tojson|safe }};
+    const graphs = {{graphJSON | safe}};
+    const ids = {{ids | tojson | safe}};
     for(let i in graphs) {
         Plotly.plot(ids[i], graphs[i].data, graphs[i].layout);
     }
 </script>
+
+{% endif %}
+
 
 </body>
 </html>
