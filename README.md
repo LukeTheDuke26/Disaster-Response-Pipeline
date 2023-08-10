@@ -90,6 +90,25 @@ The machine learning pipeline, coded in the `train_classifier.py` file, performs
 
 By following these steps, the pipeline ensures a systematic approach to training a machine learning model that can classify disaster messages into relevant categories.
 
+
+## Exported Model as a Pickle File <a name="pickle"></a>
+
+The final model, after being trained on the dataset, is exported as a pickle file named `classifier.pkl`. This approach serves several advantages:
+
+1. **Portability**: The trained model can be shared easily, allowing others to replicate results without re-training.
+2. **Efficiency**: Loading a model from a pickle file is faster than retraining, which makes it ideal for production use-cases.
+3. **Versatility**: The pickle format ensures that the entire pipeline, including data preprocessing steps, can be saved and loaded uniformly.
+
+### Important Note on Using Pickle Files:
+While pickle files are convenient, it's essential to be aware of their limitations and potential risks:
+
+- **Security Concerns**: Never load a pickle file from untrusted sources. They can execute arbitrary code and can be a security risk.
+- **Version Compatibility**: Pickle files can sometimes be sensitive to the specific versions of libraries. If you encounter issues, ensure that you're using the same library versions that were present during the model's training and pickling.
+
+For the above reasons, while the `classifier.pkl` file is crucial for the operation of the Flask web app in this project, it has been excluded from the GitHub repository. If you're replicating this project or deploying it, ensure that you run the machine learning pipeline to generate your own `classifier.pkl` file.
+
+---
+
 ## Machine Learning Pipeline Results <a name="mlresults"></a>
 
 After training and evaluating the machine learning pipeline, the model achieved an overall accuracy of **82%**. 
@@ -149,9 +168,6 @@ The discrepancies in accuracy suggest that while the model can classify most mes
 Despite the outlined limitations, the overall accuracy of **82%** showcases a promising start. The model's performance can potentially be enhanced by addressing these limitations in future iterations.
 
 --- 
-
-This summary provides a comprehensive overview of the machine learning pipeline's performance and results. It's ready to be integrated into the README.md file.
-
 
 
 ## Flask Web App <a name="flask"></a>
