@@ -12,9 +12,14 @@
     - [Dependencies](#dependencies)
     - [Installation](#installation)
     - [Execution](#execution)
+    - [Using Command Line Arguments](#cmdargs)
 4. [File Descriptions](#files)
 5. [Results](#results)
 6. [Licensing, Authors, and Acknowledgements](#licensing)
+
+---
+
+This section provides clarity on how to use the command line arguments, guiding users through the necessary steps to successfully run the scripts.
 
 ## Project Overview <a name="overview"></a>
 
@@ -89,6 +94,24 @@ The machine learning pipeline, coded in the `train_classifier.py` file, performs
    - The `main` function coordinates the entire pipeline. It loads the data, splits it into training and test sets, builds the model, trains the model on the training data, evaluates its performance on the test data, and finally saves the trained model. After evaluating the model, it prints out some of the messages that were misclassified in the "related" category.
 
 By following these steps, the pipeline ensures a systematic approach to training a machine learning model that can classify disaster messages into relevant categories.
+
+### Using Command Line Arguments <a name="cmdargs"></a>
+
+To execute the data processing and model training scripts, you can use the following command line arguments:
+
+1. For the ETL pipeline:
+   
+   ```
+   python process_data.py --data_messages /Users/luca/Documents/Udacity\ -\ all\ learning\ materials/disaster_response_pipeline_project/data/disaster_messages.csv --data_categories /Users/luca/Documents/Udacity\ -\ all\ learning\ materials/disaster_response_pipeline_project/data/disaster_categories.csv --database /Users/luca/Documents/Udacity\ -\ all\ learning\ materials/disaster_response_pipeline_project/data/DisasterResponse.db
+   ```
+
+2. For the Machine Learning pipeline:
+   
+   ```
+   python train_classifier.py --database /Users/luca/Documents/Udacity\ -\ all\ learning\ materials/disaster_response_pipeline_project/data/DisasterResponse.db --model /Users/luca/Documents/Udacity\ -\ all\ learning\ materials/disaster_response_pipeline_project/data/classifier.pkl
+   ```
+
+Ensure that you navigate to the appropriate directory (`data` or `models`) before executing the above commands. 
 
 
 ## Exported Model as a Pickle File <a name="pickle"></a>

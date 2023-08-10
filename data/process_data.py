@@ -1,3 +1,4 @@
+import argparse
 import sys
 import pandas as pd
 from sqlalchemy import create_engine
@@ -59,16 +60,24 @@ def save_data(df, database_filename):
     df.to_sql('DisasterResponse', engine, index=False, if_exists='replace')
 
 def main():
-    """
-    Main function which will kick off the data processing functions. 
-    There are three primary actions:
-      1) Load the data
-      2) Clean the data
-      3) Save data to SQLite database
-    """
-    messages_filepath = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/disaster_messages.csv'
-    categories_filepath = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/disaster_categories.csv'
-    database_filepath = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/DisasterResponse.db'
+    parser = argparse.ArgumentParser(description="ETL Pipeline to process and clean disaster response data")
+    
+    default_messages_path = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/disaster_messages.csv'
+    default_categories_path = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/disaster_categories.csv'
+    default_database_path = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/DisasterResponse.db'
+    
+    parser.add_argument("--data_messages", type=str, default=default_messages_path,
+                        help=f"Filepath for the messages dataset. Default: {default_messages_path}")
+    parser.add_argument("--data_categories", type=str, default=default_categories_path, 
+                        help=f"Filepath for the categories dataset. Default: {default_categories_path}")
+    parser.add_argument("--database", type=str, default=default_database_path, 
+                        help=f"Filename for the SQLite database. Default: {default_database_path}")
+
+    args = parser.parse_args()
+
+    messages_filepath = args.data_messages
+    categories_filepath = args.data_categories
+    database_filepath = args.database
 
     print('Loading data...\n    MESSAGES: {}\n    CATEGORIES: {}'
           .format(messages_filepath, categories_filepath))

@@ -1,5 +1,6 @@
 import os
 import sys
+import argparse
 import traceback
 import pandas as pd
 import nltk
@@ -116,12 +117,20 @@ def save_model(model, model_filepath):
 
 
 def main():
-    """
-    Main function for running the script.
-    """
-    print("Current working directory:", os.getcwd())
-    database_filepath = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/DisasterResponse.db'
-    model_filepath = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/classifier.pkl'
+    parser = argparse.ArgumentParser(description="ML Pipeline to train and evaluate disaster response model")
+    
+    default_database_path = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/DisasterResponse.db'
+    default_model_path = '/Users/luca/Documents/Udacity - all learning materials/disaster_response_pipeline_project/data/classifier.pkl'
+    
+    parser.add_argument("--database", type=str, default=default_database_path,
+                        help=f"Filepath for SQLite database containing preprocessed data. Default: {default_database_path}")
+    parser.add_argument("--model", type=str, default=default_model_path,
+                        help=f"Filepath for saving the trained model as a pickle file. Default: {default_model_path}")
+
+    args = parser.parse_args()
+
+    database_filepath = args.database
+    model_filepath = args.model
 
     print('Loading data...\n    DATABASE: {}'.format(database_filepath))
     X, Y, category_names = load_data(database_filepath)
@@ -144,7 +153,6 @@ def main():
     save_model(model, model_filepath)
 
     print('Trained model saved!')
-
 
 if __name__ == '__main__':
     main()
